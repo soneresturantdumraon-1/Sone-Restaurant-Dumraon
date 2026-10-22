@@ -301,6 +301,52 @@ textarea.inp{resize:none;min-height:70px}
 .lb-c{position:absolute;bottom:calc(18px + var(--sab));left:0;right:0;text-align:center;color:#fff;font-size:14px}
 .hero .b img{object-position:center 40%}
 </style>
+<style id="sone-theme">/* Sone calm iOS theme: Apple system colors, flat, soft, easy on the eyes */
+:root{
+  --bg:#F2F2F7; --card:#FFFFFF; --card2:#F9F9FB; --sep:rgba(60,60,67,.14);
+  --brand:#D62828; --brand-d:#B31217; --gold:#8E8E93;
+  --shadow:0 0 0 .5px rgba(60,60,67,.08);
+  --grad:#D62828;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#000000; --card:#1C1C1E; --card2:#2C2C2E; --sep:rgba(84,84,88,.55);
+  --brand:#FF453A; --brand-d:#D70015; --gold:#98989D;
+  --shadow:0 0 0 .5px rgba(255,255,255,.06);
+  --grad:#FF453A;
+}}
+body{letter-spacing:0}
+h1,h2,h3,.largetitle{letter-spacing:-.4px}
+.largetitle{font-weight:700}
+.navbar{border-bottom:.5px solid var(--sep);box-shadow:none}
+.section-h{font-weight:600;letter-spacing:.3px;color:var(--label2);text-transform:uppercase;font-size:13px}
+.list{border-radius:12px;box-shadow:none}
+.list>.li+.li{border-top:.5px solid var(--sep)}
+.card,.ocard,.tile{border-radius:14px;box-shadow:none;border:0}
+.btn{background:var(--brand);border-radius:12px;box-shadow:none;letter-spacing:0}
+.btn.sec{background:var(--fill);color:var(--brand)}
+.btn.green{background:var(--green)}
+.btn.blue{background:var(--blue)}
+.btn.red{background:rgba(255,59,48,.12);color:var(--red)}
+.chip{border:0;box-shadow:none;background:var(--card)}
+.chip.on{background:var(--brand);color:#fff;box-shadow:none}
+.tabbar{border-top:.5px solid var(--sep);box-shadow:none}
+.tabbar button.active{color:var(--brand);font-weight:600}
+.tabbar button.active::before{content:none}
+.inp:focus,input:focus,textarea:focus,select:focus{outline:2px solid rgba(0,122,255,.45);outline-offset:0}
+.sheet{border-radius:14px 14px 0 0}
+.alert{border-radius:14px}
+.toast{border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.fab{background:var(--brand);box-shadow:0 4px 14px rgba(0,0,0,.2)}
+.tile .v{font-weight:700;letter-spacing:-.4px}
+.hero .b{border-radius:16px;box-shadow:none}
+.hero .b .go{background:#fff;color:#000}
+.cartbar{background:var(--green);border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.dot{box-shadow:none}
+#langbar,#install-box{border:0;box-shadow:none;border-radius:14px}
+#langbar button{border-radius:10px}
+#langbar button.on{background:var(--brand)!important;box-shadow:none}
+#install-btn{background:var(--brand)!important;box-shadow:none;border-radius:12px}
+</style>
 </head>
 <body>
 <div id="app">
@@ -914,18 +960,19 @@ window.SONE_CONFIG = {
         return '<button type="button" data-l="' + l[0] + '">' + l[1] + '</button>';
       }).join('') + '</div>';
       b.addEventListener('click', function (e) { var x = e.target.closest('button[data-l]'); if (x) setLang(x.getAttribute('data-l')); });
-      var app = document.getElementById('app');
-      if (app && app.parentNode) app.parentNode.insertBefore(b, app.nextSibling); else document.body.appendChild(b);
+      var home = document.querySelector('#v-account,#v-me,#v-more') || document.querySelector('main.view');
+      if (home) home.appendChild(b); else document.body.appendChild(b);
     }
     Array.prototype.forEach.call(b.querySelectorAll('button'), function (x) { x.classList.toggle('on', x.getAttribute('data-l') === cur); });
   }
   function css() {
     var s = document.createElement('style');
-    s.textContent = '#langbar{margin:18px 16px 8px;padding:12px;border-radius:16px;background:var(--card,#fff);box-shadow:var(--shadow,0 1px 3px rgba(0,0,0,.08));text-align:center}' +
-      '#langbar .lb-t{font-size:12px;font-weight:600;color:var(--label2,#666);margin-bottom:8px}' +
-      '#langbar .lb-r{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}' +
-      '#langbar button{padding:7px 12px;border-radius:18px;background:var(--fill,rgba(120,120,128,.12));color:var(--label,#000);font-size:14px;font-weight:600;border:0;cursor:pointer}' +
-      '#langbar button.on{background:var(--brand,#D62828);color:#fff}';
+    s.textContent = '#langbar{margin:22px 16px 10px;padding:14px 12px 12px;border-radius:18px;background:var(--card,#fff);box-shadow:var(--shadow,0 1px 3px rgba(0,0,0,.08));text-align:center}' +
+      '#langbar .lb-t{font-size:12px;font-weight:600;letter-spacing:.2px;color:var(--label2,#666);margin-bottom:10px}' +
+      '#langbar .lb-r{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}' +
+      '#langbar button{min-width:76px;padding:8px 12px;border-radius:12px;background:var(--fill,rgba(120,120,128,.12));color:var(--label,#000);font-size:14px;font-weight:600;border:0;cursor:pointer;transition:transform .12s,background .2s}' +
+      '#langbar button:active{transform:scale(.96)}' +
+      '#langbar button.on{background:var(--brand,#D62828);color:#fff;}';
     document.head.appendChild(s);
   }
   function setLang(l) {
