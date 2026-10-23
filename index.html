@@ -547,7 +547,7 @@ window.SONE_CONFIG = {
     if (m.error) { $('#menu').innerHTML = `<div class="empty"><div class="big">📡</div>Menu load nahi hua.<br><button class="btn sm mt12" onclick="location.reload()">Dobara koshish karein</button></div>`; return; }
     MENU = m.data || []; SET = {}; (s.data || []).forEach(r => SET[r.key] = r.value);
     Object.keys(cart).forEach(id => { if (!MENU.find(x => x.id == id && x.available)) delete cart[id]; }); saveCart();
-    renderTop(); renderHero(); renderAbout(); renderCats(); renderMenu(); renderCard(); cartBar();
+    renderTop(); renderHero(); renderAbout(); renderContacts(); renderCats(); renderMenu(); renderCard(); cartBar();
   }
   function renderTop() {
     const pill = $('#open-pill');
@@ -859,10 +859,15 @@ window.SONE_CONFIG = {
       <div class="section-h">Asli menu card</div><div class="about-img">${PAGES.map((p, k) => `<img src="${p[0]}" alt="${esc(p[1])}" data-pgs="pages" data-i="${k}" loading="lazy" style="width:120px;height:160px;object-position:top">`).join('')}</div>`;
   }
   renderAbout();
-  $('#contact-list').innerHTML = `<a class="li chev" href="tel:${C.WHATSAPP.slice(2)}"><span class="grow t">📞 Call karein</span><span class="muted">${C.WHATSAPP.slice(2)}</span></a>
+  function staffContacts() { try { const v = SET.contacts, a = typeof v === 'string' ? JSON.parse(v) : v; return (Array.isArray(a) ? a : []).filter(x => /^\d{10}$/.test(String(x.phone || ''))); } catch (e) { return []; } }
+  function renderContacts() {
+    const who = staffContacts().map(x => `<a class="li chev" href="tel:${x.phone}"><span class="grow t">📞 ${esc(x.role || 'Staff')}${x.name ? ' · ' + esc(x.name) : ''}</span><span class="muted">${x.phone}</span></a>`).join('');
+    $('#contact-list').innerHTML = `<a class="li chev" href="tel:${C.WHATSAPP.slice(2)}"><span class="grow t">📞 Call karein</span><span class="muted">${C.WHATSAPP.slice(2)}</span></a>${who}
     <a class="li chev" href="${wa('Namaste Sone Restaurant!')}" target="_blank" rel="noopener"><span class="grow t">💬 WhatsApp</span></a>
     <a class="li chev" href="${wa('Namaste! Mujhe Sone Restaurant ka Party Hall book karna hai.')}" target="_blank" rel="noopener"><span class="grow t">🎉 Party Hall book karein</span></a>
     <a class="li chev" href="https://maps.google.com/?q=${encodeURIComponent('Sone Restaurant Dumraon Station Road')}" target="_blank" rel="noopener"><span class="grow t">📍 Map par dekhein</span></a>`;
+  }
+  renderContacts();
 
   /* ---------- PWA ---------- */
   let dp; window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); dp = e; $('#install-box').classList.remove('hide'); });
