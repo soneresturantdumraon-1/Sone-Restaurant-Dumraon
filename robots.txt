@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://soneresturantdumraon-1.github.io/Sone-Restaurant-Dumraon/sitemap.xml
