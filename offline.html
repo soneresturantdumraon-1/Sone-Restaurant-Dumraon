@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="hi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f0f0f"><meta name="robots" content="noindex">
+<title>Internet nahi hai · Sone Restaurant</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
+ background:#0f0f0f;color:#f3efe9;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:24px;-webkit-user-select:none;user-select:none}
+.box{max-width:340px}
+img{width:96px;height:96px;object-fit:contain;margin-bottom:18px}
+.ic{font-size:54px;margin-bottom:6px}
+h1{font-size:21px;margin:6px 0 8px}
+p{margin:0 0 6px;color:#b9b2a8;font-size:14.5px;line-height:1.5}
+button{margin-top:22px;border:0;border-radius:14px;background:#c4161c;color:#fff;font-size:16px;font-weight:700;padding:14px 34px}
+button:active{transform:scale(.96)}
+.call{display:block;margin-top:16px;color:#e8c27a;font-size:14px;text-decoration:none}
+</style></head><body>
+<div class="box">
+  <img src="favicon-192.png" alt="Sone" onerror="this.style.display='none'">
+  <div class="ic">📵</div>
+  <h1>Internet connection nahi hai</h1>
+  <p>इंटरनेट बंद है. कृपया Wi-Fi या मोबाइल डेटा चालू करें.</p>
+  <p>Connection aate hi Sone Restaurant se order kar payenge.</p>
+  <button onclick="location.reload()">Dobara koshish karein</button>
+  <a class="call" href="tel:+919155745145">📞 Seedha restaurant ko call karein</a>
+</div>
+<script>addEventListener('online',function(){location.reload()});</script>
+</body></html>
