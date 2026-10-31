@@ -1,5 +1,5 @@
 /* Sone Restaurant – Service Worker (offline page ke saath) */
-const VER = 'sone-v5';
+const VER = 'sone-v6';
 const CORE = ['offline.html', 'favicon-192.png', 'icon-192.png', 'icon-512.png'];
 
 self.addEventListener('install', e => {
@@ -36,4 +36,13 @@ self.addEventListener('fetch', e => {
       }))
     );
   }
+});
+
+// Notification par tap: app kholo / wapas laao
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  e.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(cs => {
+    for (const c of cs) { if ('focus' in c) return c.focus(); }
+    return self.clients.openWindow('./');
+  }));
 });
